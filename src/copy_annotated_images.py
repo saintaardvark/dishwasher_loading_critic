@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 ROOT_IMAGES_DIR = '/home/aardvark/dev/dishwasher_training_data/raw'
-XML_DIR = '/home/aardvark/dev/dishwasher_training_data/annotated'
+XML_DIR = '/home/aardvark/dev/dishwasher_training_data/annotated/labels_my-project-name_2020-12-26-02-09-53'
 
 
 def find_file_matching(target, root):
