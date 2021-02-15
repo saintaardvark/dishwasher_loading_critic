@@ -142,3 +142,7 @@ help:
 		printf "\n"; \
 	}' \
 	| more $(shell test $(shell uname) = Darwin && echo '--no-init --raw-control-chars')
+
+# Just for development!
+devel-api:
+	FLASK_ENV=development FLASK_APP=./src/rest_api/app.py flask run
