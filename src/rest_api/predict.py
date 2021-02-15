@@ -10,7 +10,7 @@ model.eval()
 
 # Downloaded from https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json
 imagenet_class_dir = os.path.dirname(os.path.abspath(__file__))
-imagenet_class_file = f"{imagenet_class_dir}/_static/imagenet_class_index.json"
+imagenet_class_file = f"{imagenet_class_dir}/static/imagenet_class_index.json"
 imagenet_class_index = json.load(open(imagenet_class_file))
 
 def get_prediction(image_bytes):
