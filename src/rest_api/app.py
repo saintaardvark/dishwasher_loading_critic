@@ -1,8 +1,18 @@
-from flask import Flask, jsonify, redirect, request
+from flask import Flask, jsonify, redirect, render_template, request
 
 from predict import get_prediction
 
 app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    """Main entry point for users
+    """
+    if request.method == 'POST':
+        # Do a thing
+        return
+
+    return render_template('index.html')
 
 @app.route('/status')
 def hello():
