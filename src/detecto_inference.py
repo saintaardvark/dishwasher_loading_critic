@@ -86,7 +86,7 @@ def main(args=[]):
         # which is Detecto's default
         # (https://github.com/alankbi/detecto/blob/master/detecto/core.py#L255)
         #
-        # Channging the learning rate from default 0.005 to 0.0005 did
+        # Changing the learning rate from default 0.005 to 0.0005 did
         # the trick -- predictions now work!
 
         int_model.eval()
