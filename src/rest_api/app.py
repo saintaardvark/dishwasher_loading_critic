@@ -1,3 +1,5 @@
+from base64 import standard_b64encode
+
 from flask import Flask, jsonify, redirect, render_template, request
 
 from predict import get_prediction
@@ -9,8 +11,18 @@ def upload_file():
     """Main entry point for users
     """
     if request.method == 'POST':
-        # Do a thing
-        return
+        if 'file' not in request.files:
+            return redirect(request.url)
+
+        file = request.files['file']
+        try:
+            img_bytes = file.read()
+        except Exception as e:
+            return jsonify({'problem': 'Could not read file', 'error': str(e)})
+
+        class_id, class_name = get_prediction(image_bytes=img_bytes)
+        img_bytes_b64 = str(standard_b64encode(img_bytes))
+        return render_template('result.html', class_id=class_id, class_name=class_name, img_bytes=img_bytes_b64)
 
     return render_template('index.html')
 
