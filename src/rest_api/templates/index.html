@@ -38,9 +38,9 @@
     <script type="text/javascript">
       $('#inputfile').bind('change', function() {
 	let fileSize = this.files[0].size/1024/1024 ; // This gives size in MB
-	if (fileSize > 1) {
+	if (fileSize > 10) {
 	  $("#inputfile").val(null); // FIXME: Why double quotes here, cf single above?
-	  alert('Whoah, there, cowboy!  Images more than 1MB are too big!');
+	  alert('Whoah, there, cowboy!  Images more than 10MB are too big!');
 	  return;
 	}
 
