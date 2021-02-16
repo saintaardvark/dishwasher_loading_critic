@@ -18,6 +18,14 @@ def transform_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes))
     return my_transforms(image).unsqueeze(0)
 
+def thumbnailify_image(image_bytes, size=(120, 120)):
+    """Convenience method for shrinking image for thumbnails
+    """
+    img = Image.open(io.BytesIO(image_bytes))
+    img.thumbnail(size)
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format='JPEG')
+    return img_byte_arr.getvalue()
 
 if __name__ == '__main__':
     with open(test_img, "rb") as f:

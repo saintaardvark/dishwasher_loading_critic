@@ -3,6 +3,7 @@ from base64 import standard_b64encode
 from flask import Flask, jsonify, redirect, render_template, request
 
 from predict import get_prediction
+from transform import thumbnailify_image
 
 app = Flask(__name__)
 
@@ -21,8 +22,9 @@ def upload_file():
             return jsonify({'problem': 'Could not read file', 'error': str(e)})
 
         class_id, class_name = get_prediction(image_bytes=img_bytes)
-        img_bytes_b64 = str(standard_b64encode(img_bytes))
-        return render_template('result.html', class_id=class_id, class_name=class_name, img_bytes=img_bytes_b64)
+        # TODO: Refactor this & thumbnailify_image()
+        thumbnail_bytes = str(standard_b64encode(thumbnailify_image(img_bytes)))
+        return render_template('result.html', class_id=class_id, class_name=class_name, img_bytes=thumbnail_bytes)
 
     return render_template('index.html')
 
