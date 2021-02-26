@@ -123,7 +123,6 @@ class MyDataset(Dataset):
         if self.transforms is not None:
             img, target = self.transforms(img, target)
 
-        # FIXME: is img being converted to a tensor here? thought it would be...
         return img, target
 
 
@@ -136,6 +135,7 @@ def get_transform(train=False):
     transforms.append(T.ToTensor())
     if train:
         transforms.append(T.RandomHorizontalFlip(0.5))
+    return T.Compose(transforms)
 
 
 # https://github.com/pytorch/vision/blob/master/references/detection/utils.py#L235-L236
