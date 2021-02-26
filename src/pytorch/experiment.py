@@ -13,6 +13,7 @@ from torch.utils.data import Dataset, DataLoader  # dataset representation and l
 
 import torchvision
 import torchvision.transforms as T
+from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
 torch.set_printoptions(edgeitems=2)
 torch.manual_seed(42)  # The Answer to Life, the Universe, and Everything
@@ -135,10 +136,21 @@ def main():
     """Main entry point"""
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
     print(training_ds.__get_item__(0))
-    print(training_ds.unique_labels)
+    num_labels = len(training_ds.unique_labels)
 
     # fasterrcnn_resnet50_fpn was default for Detecto, so stick with that for now
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+
+    # About to replace the box_predictor with one set up for the
+    # number of classes we have.
+    # FIXME: I'm using "labels" and "classes" interchangeably, which is a bit confusing.
+    print("Before:")
+    print(model.roi_heads)
+    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_labels)
+    print("After:")
+    print(model.roi_heads)
+
     # print(model)
 
 
