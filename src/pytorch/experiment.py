@@ -99,7 +99,7 @@ class MyDataset(Dataset):
 # a function to create that list of transformers.  Following the tutorial.
 
 
-def get_transform(train):
+def get_transform(train=False):
     transforms = []
     transforms.append(T.ToTensor())
     if train:
@@ -109,8 +109,8 @@ def get_transform(train):
 
 def main():
     """Main entry point"""
-    d = MyDataset(dataset_root / "train", None)
-    print(d.__get_item__(0))
+    training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
+    print(training_ds.__get_item__(0))
 
 
 if __name__ == "__main__":
