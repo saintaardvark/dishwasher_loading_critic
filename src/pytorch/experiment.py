@@ -95,7 +95,7 @@ class MyDataset(Dataset):
         labels_path = self.label_files[idx]
 
         img_filename, boxes = read_bounding_box_and_labels(labels_path)
-        img = Image.open(img_path)
+        img = Image.open(img_path).convert("RGB")
         num_items = len(boxes)
         boxes_t = torch.ones([num_items, 4], dtype=torch.float)
         labels_t = torch.ones([num_items], dtype=torch.int64)
