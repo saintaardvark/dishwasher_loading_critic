@@ -80,7 +80,7 @@ class MyDataset(Dataset):
     def __len__(self):
         return len(self.imgs)
 
-    def __get_item__(self, idx):
+    def __getitem__(self, idx):
         """Need to return a dict containing:
         - boxes
         - labels
