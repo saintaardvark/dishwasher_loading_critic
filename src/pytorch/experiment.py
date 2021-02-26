@@ -102,11 +102,8 @@ class MyDataset(Dataset):
         for i in range(len(boxes)):
             box = boxes[i][0:4]  # up-to-but-not-including!
             boxes_t[i] = torch.FloatTensor(boxes[i][0:4])
-            # FIXME: Going to need to think about transforming label
-            # string to list.  For now, will just return 42.
-            label = boxes[-1]
-            label = 42
-            labels_t[i] = label
+            label = boxes[i][-1]
+            labels_t[i] = self.unique_labels[label]
 
         image_id = torch.tensor([idx])
         area = (boxes_t[:, 3] - boxes_t[:, 1]) * (boxes_t[:, 2] - boxes_t[:, 0])
