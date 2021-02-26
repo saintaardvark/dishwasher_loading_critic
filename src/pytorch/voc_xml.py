@@ -2,8 +2,11 @@
 import xml.etree.ElementTree as ET
 
 
+# TODO: Misleading name, odd choice of things to return
+# TODO: Find a proper library for VOC stuff
 def read_bounding_box_and_labels(xml_file: str):
-
+    """Get the bounding boxes and labels contained within a VOC XML file.
+    """
     tree = ET.parse(xml_file)
     root = tree.getroot()
 
