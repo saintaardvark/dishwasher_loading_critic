@@ -13,8 +13,11 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader  # dataset representation and loading
 
 import torchvision
-import utils.transforms as T
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+
+import utils.transforms as T
+import utils.engine
+import utils.utils as utils
 
 torch.set_printoptions(edgeitems=2)
 torch.manual_seed(42)  # The Answer to Life, the Universe, and Everything
@@ -136,11 +139,6 @@ def get_transform(train=False):
     return T.Compose(transforms)
 
 
-# https://github.com/pytorch/vision/blob/master/references/detection/utils.py#L235-L236
-def collate_fn(batch):
-    return tuple(zip(*batch))
-
-
 def main():
     """Main entry point"""
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
@@ -166,7 +164,7 @@ def main():
         batch_size=2,
         shuffle=True,
         num_workers=1,
-        collate_fn=collate_fn,
+        collate_fn=utils.collate_fn,
     )
     print(next(iter(training_dl)))
     images, targets = next(iter(training_dl))
