@@ -136,15 +136,20 @@ def get_transform(train=False):
     transforms.append(T.ToTensor())
     if train:
         transforms.append(T.RandomHorizontalFlip(0.5))
-    return T.Compose(transforms)
+
+
+# https://github.com/pytorch/vision/blob/master/references/detection/utils.py#L235-L236
+def collate_fn(batch):
+    return tuple(zip(*batch))
 
 
 def main():
     """Main entry point"""
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
-    print(training_ds.__get_item__(0))
-    num_labels = len(training_ds.unique_labels)
 
+    num_labels = len(training_ds.unique_labels)
+    print(training_ds.unique_labels)
+    print(training_ds.__getitem__(0))
     # fasterrcnn_resnet50_fpn was default for Detecto, so stick with that for now
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
 
