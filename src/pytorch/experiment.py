@@ -163,6 +163,17 @@ def main():
     print("After:")
     print(model.roi_heads)
 
+    training_dl = DataLoader(
+        training_ds,
+        batch_size=2,
+        shuffle=True,
+        num_workers=1,
+        collate_fn=collate_fn,
+    )
+    print(next(iter(training_dl)))
+    images, targets = next(iter(training_dl))
+    images = list(image for image in images)
+    targets = [{k: v for k, v in t.items()} for t in targets]
     # print(model)
 
 
