@@ -172,7 +172,8 @@ def main():
     images, targets = next(iter(training_dl))
     images = list(image for image in images)
     targets = [{k: v for k, v in t.items()} for t in targets]
-    # print(model)
+    output = model(images, targets)  # Return losses & detections
+    print(output)
 
 
 if __name__ == "__main__":
