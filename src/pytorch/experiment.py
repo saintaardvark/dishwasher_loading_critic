@@ -128,8 +128,6 @@ class MyDataset(Dataset):
 
 # When creating a dataset, a set of transformers is required.  This is
 # a function to create that list of transformers.  Following the tutorial.
-
-
 def get_transform(train=False):
     transforms = []
     transforms.append(T.ToTensor())
