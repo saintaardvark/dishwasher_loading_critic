@@ -67,7 +67,7 @@ class MyDataset(Dataset):
             new_set = get_unique_labels(f)
             labels |= new_set
         i = 1  # Start at 1 because 0 is always background class
-        d = {}
+        d = {"background": 0}
 
         # FIXME: For reasons I don't understand, I need to convert
         # this to a list here.  If I don't, I end up iterating over
