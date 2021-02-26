@@ -13,7 +13,7 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader  # dataset representation and loading
 
 import torchvision
-import torchvision.transforms as T
+import utils.transforms as T
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
 torch.set_printoptions(edgeitems=2)
