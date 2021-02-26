@@ -28,3 +28,18 @@ def read_bounding_box_and_labels(xml_file: str):
         list_with_all_boxes.append(list_with_single_boxes)
 
     return filename, list_with_all_boxes
+
+def get_unique_labels(xml_file: str):
+    """Return set() of unique labels from within a VOC XML file
+    """
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+    unique_labels = set()
+
+    for boxes in root.iter("object"):
+        name = boxes.find("name").text
+        print("[FIXME] Adding {}".format(name))
+        unique_labels.add(name)
+
+    print("[FIXME] returning {}".format(unique_labels))
+    return unique_labels
