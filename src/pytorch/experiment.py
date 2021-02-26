@@ -3,6 +3,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
+from PIL import Image
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -94,6 +95,7 @@ class MyDataset(Dataset):
         labels_path = self.label_files[idx]
 
         img_filename, boxes = read_bounding_box_and_labels(labels_path)
+        img = Image.open(img_path)
         num_items = len(boxes)
         boxes_t = torch.ones([num_items, 4], dtype=torch.float)
         labels_t = torch.ones([num_items], dtype=torch.int64)
@@ -110,13 +112,19 @@ class MyDataset(Dataset):
         # suppose all instances are not crowd
         iscrowd = torch.zeros((num_items), dtype=torch.int64)
 
-        return {
+        target = {
             "boxes": boxes_t,
             "labels": labels_t,
             "image_id": image_id,
             "area": area,
             "iscrowd": iscrowd,
         }
+
+        if self.transforms is not None:
+            img, target = self.transforms(img, target)
+
+        # FIXME: is img being converted to a tensor here? thought it would be...
+        return img, target
 
 
 # When creating a dataset, a set of transformers is required.  This is
