@@ -38,8 +38,6 @@ def get_unique_labels(xml_file: str):
 
     for boxes in root.iter("object"):
         name = boxes.find("name").text
-        print("[FIXME] Adding {}".format(name))
         unique_labels.add(name)
 
-    print("[FIXME] returning {}".format(unique_labels))
     return unique_labels

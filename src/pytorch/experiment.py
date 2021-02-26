@@ -137,6 +137,7 @@ def main():
     print(training_ds.__get_item__(0))
     print(training_ds.unique_labels)
 
+    # fasterrcnn_resnet50_fpn was default for Detecto, so stick with that for now
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     # print(model)
 
