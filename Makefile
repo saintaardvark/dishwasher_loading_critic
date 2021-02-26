@@ -145,4 +145,4 @@ help:
 
 # Just for development!
 devel-api:
-	FLASK_ENV=development FLASK_APP=./src/rest_api/app.py flask run
+	FLASK_ENV=development FLASK_APP=./src/rest_api/app.py flask run --host 0.0.0.0
