@@ -110,10 +110,6 @@ def get_transform(train):
 def main():
     """Main entry point"""
     d = MyDataset(dataset_root / "train", None)
-    # print(d.imgs)
-    # print(d.labels)
-    # filename, boxes_list = read_bounding_box_and_labels(d.labels[0])
-    # print(filename, boxes_list)
     print(d.__get_item__(0))
 
 
