@@ -10,6 +10,8 @@ import torch.optim as optim
 
 # This line comes from the PyTorch Cheatsheet (https://pytorch.org/tutorials/beginner/ptcheat.html)
 from torch.utils.data import Dataset, DataLoader  # dataset representation and loading
+
+import torchvision
 import torchvision.transforms as T
 
 torch.set_printoptions(edgeitems=2)
@@ -134,6 +136,9 @@ def main():
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
     print(training_ds.__get_item__(0))
     print(training_ds.unique_labels)
+
+    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    # print(model)
 
 
 if __name__ == "__main__":
