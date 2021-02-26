@@ -62,7 +62,7 @@ class MyDataset(Dataset):
         for f in self.label_files:
             new_set = get_unique_labels(f)
             labels |= new_set
-        i = 1 # Start at 1 because 0 is always background class
+        i = 1  # Start at 1 because 0 is always background class
         d = {}
 
         # FIXME: For reasons I don't understand, I need to convert
