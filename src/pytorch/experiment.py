@@ -47,6 +47,8 @@ class MyDataset(Dataset):
         self.transforms = transforms
         self.imgs = [f for f in self.root.glob("*jpg")]
         self.label_files = [f for f in self.root.glob("*xml")]
+        # FIXME: This is a hash; come up with a better name for this.
+        # It makes for confusing use in build_unique_labels.
         self.unique_labels = self.build_unique_labels()
         try:
             assert len(self.imgs) == len(self.label_files)
