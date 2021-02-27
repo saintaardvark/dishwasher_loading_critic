@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# An implementation (sort of) of this tutorial:
+# https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
+
 from matplotlib import pyplot as plt
 import os
 from pathlib import Path
