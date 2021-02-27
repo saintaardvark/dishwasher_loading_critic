@@ -211,8 +211,17 @@ def main():
         )
         # Update learning rate
         lr_scheduler.step()
-        # evaluate on test datasete
-        engine.evaluate(model, test_dl, device=device)
+        # Note: In the tutorial, they've got a custom method here for
+        # evaluation in engine.py (saved locally as
+        # torchvision_utils/engine.py).  The evaluate method makes use
+        # of the Microsoft Coco tools; however, those are not easily
+        # installable via pip.  I appreciate the metrics that are in
+        # there, but for now I'm going to stick with the basics:
+        # running model.eval() and going from there.
+        #
+        # engine.evaluate(model, test_dl, device=device)
+
+        engine.my_evaluate(model, valid_dl, device=device)
 
     print("M A S S I V E    V I C T O R Y")
 
