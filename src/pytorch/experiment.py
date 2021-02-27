@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 from matplotlib import pyplot as plt
-import numpy as np
+import os
+from pathlib import Path
 
+import numpy as np
 from PIL import Image
 import torch
 import torch.nn as nn
@@ -11,21 +13,17 @@ import torch.optim as optim
 
 # This line comes from the PyTorch Cheatsheet (https://pytorch.org/tutorials/beginner/ptcheat.html)
 from torch.utils.data import Dataset, DataLoader  # dataset representation and loading
-
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
 import torchvision_utils.transforms as T
 from torchvision_utils.utils import collate_fn
 from torchvision_utils import engine
+from voc_xml import read_bounding_box_and_labels, get_unique_labels
 
 torch.set_printoptions(edgeitems=2)
 torch.manual_seed(42)  # The Answer to Life, the Universe, and Everything
 
-import os
-from pathlib import Path
-
-from voc_xml import read_bounding_box_and_labels, get_unique_labels
 
 if "COLAB_GPU" in os.environ:
     print("Running on Colab!")
