@@ -143,12 +143,33 @@ def main():
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
+    test_ds = MyDataset(dataset_root / "test", get_transform(train=False))
 
     num_labels = len(training_ds.unique_labels)
     print(training_ds.unique_labels)
     print(training_ds.__getitem__(0))
+
+    training_dl = DataLoader(
+        training_ds,
+        batch_size=2,
+        shuffle=True,
+        num_workers=1,
+        collate_fn=collate_fn,
+    )
+    test_dl = DataLoader(
+        test_ds,
+        batch_size=1,
+        shuffle=False,
+        num_workers=1,
+        collate_fn=collate_fn,
+    )
+    print(next(iter(training_dl)))
+    images, targets = next(iter(training_dl))
+    images = list(image for image in images)
+    targets = [{k: v for k, v in t.items()} for t in targets]
     # fasterrcnn_resnet50_fpn was default for Detecto, so stick with that for now
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    model.to(device)
 
     # About to replace the box_predictor with one set up for the
     # number of classes we have.
@@ -160,19 +181,28 @@ def main():
     print("After:")
     print(model.roi_heads)
 
-    training_dl = DataLoader(
-        training_ds,
-        batch_size=2,
-        shuffle=True,
-        num_workers=1,
-        collate_fn=utils.collate_fn,
-    )
-    print(next(iter(training_dl)))
-    images, targets = next(iter(training_dl))
-    images = list(image for image in images)
-    targets = [{k: v for k, v in t.items()} for t in targets]
     output = model(images, targets)  # Return losses & detections
     print(output)
+
+    # Construct an optimizer
+    params = [p for p in model.parameters() if p.requires_grad]
+    optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)
+    # And a learning rate scheduler
+    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.1)
+
+    num_epochs = 10
+
+    for epoch in range(num_epochs):
+        # train for one epoch; print every 10 iterations
+        engine.train_one_epoch(
+            model, optimizer, training_dl, device, epoch, print_freq=10
+        )
+        # Update learning rate
+        lr_scheduler.step()
+        # evaluate on test datasete
+        engine.evaluate(model, test_dl, device=device)
+
+    print("M A S S I V E    V I C T O R Y")
 
 
 if __name__ == "__main__":
