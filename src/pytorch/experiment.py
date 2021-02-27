@@ -15,9 +15,9 @@ from torch.utils.data import Dataset, DataLoader  # dataset representation and l
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
-import utils.transforms as T
-import utils.engine
-import utils.utils as utils
+import torchvision_utils.transforms as T
+from torchvision_utils.utils import collate_fn
+from torchvision_utils import engine
 
 torch.set_printoptions(edgeitems=2)
 torch.manual_seed(42)  # The Answer to Life, the Universe, and Everything
