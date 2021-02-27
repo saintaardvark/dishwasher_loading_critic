@@ -146,6 +146,7 @@ def main():
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
+    valid_ds = MyDataset(dataset_root / "valid", get_transform(train=False))
     test_ds = MyDataset(dataset_root / "test", get_transform(train=False))
 
     num_labels = len(training_ds.unique_labels)
@@ -159,6 +160,14 @@ def main():
         num_workers=1,
         collate_fn=collate_fn,
     )
+    valid_dl = DataLoader(
+        valid_ds,
+        batch_size=1,
+        shuffle=False,
+        num_workers=1,
+        collate_fn=collate_fn,
+    )
+
     test_dl = DataLoader(
         test_ds,
         batch_size=1,
