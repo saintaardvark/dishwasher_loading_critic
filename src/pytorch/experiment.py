@@ -139,6 +139,9 @@ def get_transform(train=False):
 
 def main():
     """Main entry point"""
+    # train on the GPU or on the CPU, if a GPU is not available
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
     training_ds = MyDataset(dataset_root / "train", get_transform(train=True))
 
     num_labels = len(training_ds.unique_labels)
