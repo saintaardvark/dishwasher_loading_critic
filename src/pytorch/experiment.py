@@ -228,6 +228,7 @@ def main():
         engine.my_evaluate(model, valid_dl, device=device)
 
     print("M A S S I V E    V I C T O R Y")
+    torch.save(model.state_dict, "dlc_experiment.pth")
 
 
 if __name__ == "__main__":
