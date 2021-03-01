@@ -70,6 +70,7 @@ class MyDataset(Dataset):
         for f in self.label_files:
             new_set = get_unique_labels(f)
             labels |= new_set
+
         i = 1  # Start at 1 because 0 is always background class
         d = {"background": 0}
 
@@ -176,9 +177,11 @@ def main():
         collate_fn=collate_fn,
     )
     print(next(iter(training_dl)))
+
     images, targets = next(iter(training_dl))
     images = list(image for image in images)
     targets = [{k: v for k, v in t.items()} for t in targets]
+
     # fasterrcnn_resnet50_fpn was default for Detecto, so stick with that for now
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     model.to(device)
