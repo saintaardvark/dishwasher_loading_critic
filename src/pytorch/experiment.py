@@ -205,7 +205,8 @@ def main():
     # And a learning rate scheduler
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.1)
 
-    num_epochs = 10
+    num_epochs = 4  # Some experimentation showed that this is where
+    # improvement stopped
 
     for epoch in range(num_epochs):
         # train for one epoch; print every 10 iterations
