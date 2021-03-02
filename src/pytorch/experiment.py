@@ -186,6 +186,8 @@ def main():
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     model.to(device)
 
+    images.to(device)
+    targets.to(device)
     # About to replace the box_predictor with one set up for the
     # number of classes we have.
     # FIXME: I'm using "labels" and "classes" interchangeably, which is a bit confusing.
