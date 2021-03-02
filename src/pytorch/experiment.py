@@ -34,7 +34,7 @@ if "COLAB_GPU" in os.environ:
     from google.colab import drive
 
     drive.mount("/content/gdrive")
-    dataset_root = Path("/content/gdrive/MyDrive/dishwasher_training_data")
+    dataset_root = Path("/content/gdrive/MyDrive/dishwasher_training_data/roboflow")
 else:
     print("Nope, not on Colab")
     COLAB = False
