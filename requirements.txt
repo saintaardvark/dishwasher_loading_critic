@@ -88,13 +88,12 @@ sphinxcontrib-htmlhelp==1.0.3
 sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.4
--e git+rh:/var/cache/git/dishwasher_loading_critic.git@74b4a5e25acad4c906e99556f0271d8aa5163641#egg=src
 terminado==0.9.1
 testpath==0.4.4
 threadpoolctl==2.1.0
-torch==1.7.1+cpu
+torch==1.7.1
 torchaudio==0.7.2
-torchvision==0.8.2+cpu
+torchvision==0.8.2
 tornado==6.1
 tqdm==4.55.0
 traitlets==5.0.5
