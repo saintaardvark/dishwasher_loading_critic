@@ -59,25 +59,38 @@ def get_pytorch_prediction(image_bytes):
     outputs = model.forward(tensor)
     _, y_hat = outputs.max(1)
     predicted_idx = str(y_hat.item())
+    # FIXME: Now that I'm returning the output of predict_top, the
+    # return from get_pytorch_prediction is broken.k
     return class_index[predicted_idx]
 
 # FIXME: At some point I need to think about bounding boxes.
 def get_detecto_prediction(image_bytes):
     """Generate a prediction from Detecto model
+
+    param image_bytes: bytes representing an image
+
+    returns: tuple of labels, boxes, confidence
     """
-    tensor = transform.transform_image(image_bytes=image_bytes)
+    image_tensor = transform.transform_image(image_bytes=image_bytes)
+
     # Detecto expects tensor in form (C x W x H), rather than the
     # 4-dimensional array that transform_image returns.
-    tensor = torch.squeeze(tensor)
-    # Zeroth element of what predict_top returns is the list of string
-    # labels of detected objects; I am assuming that the zeroth
-    # element of that is the top prediction.
-    prediction = model.predict_top(tensor)[0][0]
-    # Note bogus class number here.
-    return ["1234", str(prediction)]
+    image_tensor = torch.squeeze(image_tensor)
+
+    prediction = model.predict_top(image_tensor)
+    labels, boxes, confidence = model.predict_top(image_tensor)
+
+    # FIXME: At some point, I need to think about whether I need a
+    # custom object -- if this output is specific to Detecto, I'll
+    # probably want somthing.
+    return (labels, boxes, confidence)
 
 def get_prediction(image_bytes):
     """Dumb wrapper while I make up my mind
+
+    param image_bytes: bytes representing an image
+
+    returns: tuple of labels, boxes, confidence
     """
     if USE_MODELZOO is True:
         return get_pytorch_prediction(image_bytes)

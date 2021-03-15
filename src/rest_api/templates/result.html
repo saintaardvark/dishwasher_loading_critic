@@ -27,7 +27,8 @@
       <!-- https://stackoverflow.com/questions/20756042/how-to-display-an-image-stored-as-byte-array-in-html-javascript -->
       <img id="PredictionImage" alt="Original image" />
       <h5 class="h5 mb-3 font-weight-normal">Detected: {{ class_name }}</h5>
-      <h5 class="h5 mb-3 font-weight-normal">ImageNet Class ID: {{ class_id }}</h5>
+      <h5 class="h5 mb-3 font-weight-normal">Box: {{ box }}</h5>
+      <h5 class="h5 mb-3 font-weight-normal">Confidence: {{ confidence }}</h5>
       <a href="/">Submit another</a>
       <p class="mt-5 mb-3 text-muted">Built using PyTorch, Flask and tea.</p>
     </form>
