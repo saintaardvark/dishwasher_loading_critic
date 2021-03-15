@@ -28,6 +28,7 @@ LABEL_FILE = f'{SRC_ROOT}/../../src/labels.txt'
 MODEL_1 = f'{SRC_ROOT}/../../models/detecto_model-0.0.1.pth'
 MODEL_2 = f'{SRC_ROOT}/../../models/detecto_model-0.0.2-paperspace.pth'
 MODEL_3 = f'{SRC_ROOT}/../../models/detecto_model-0.0.3-paperspace.pth'
+MODEL_4 = f'{SRC_ROOT}/../../models/notebook_6-detecto_roboflow.pth'
 
 # FIXME: This would be better off as option in UI, different endpoint, or a
 # config variable.
