@@ -53,7 +53,6 @@ def draw_bounding_boxes(image_bytes, boxes, labels, limit=0):
         all_bounding_boxes.append(bbox)
 
     img_with_bbs = BoundingBoxesOnImage(all_bounding_boxes, shape=image.shape).draw_on_image(image, size=2)
-    print("FIXME: type(img_with_bbs) == {}".format(type(img_with_bbs)))
     return img_with_bbs
 
 def img_from_bytes(image_bytes):
