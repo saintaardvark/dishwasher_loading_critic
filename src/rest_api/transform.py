@@ -3,7 +3,7 @@ import io
 import torchvision.transforms as transforms
 from PIL import Image
 
-test_img = '/home/aardvark/dev//dishwasher_training_data/raw/Dishwasher Training/20-09-07 09-01-49 9698.jpg'
+test_img = '/home/aardvark/dev/src/dishwasher_training_data/raw/Dishwasher Training/20-09-07 09-01-49 9698.jpg'
 
 def transform_image(image_bytes):
     """Transform image appropriately for inference

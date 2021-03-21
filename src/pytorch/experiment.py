@@ -38,7 +38,7 @@ if "COLAB_GPU" in os.environ:
 else:
     print("Nope, not on Colab")
     COLAB = False
-    dataset_root = Path("/home/aardvark/dev/dishwasher_training_data/roboflow")
+    dataset_root = Path("/home/aardvark/dev/src/dishwasher_training_data/roboflow")
 
 
 class MyDataset(Dataset):
