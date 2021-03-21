@@ -29,8 +29,10 @@ def thumbnailify_image(image_bytes, size=(120, 120)):
     img.save(img_byte_arr, format='JPEG')
     return img_byte_arr.getvalue()
 
-def draw_bounding_boxes(image_bytes, boxes, labels):
+def draw_bounding_boxes(image_bytes, boxes, labels, limit=0):
     """Draw bounding boxes as needed
+
+    If limit > 0: only use the top limit number of boxes
 
     Returns: numpy ndarray.  Use imgdata_from_ndarray() to convert to bytes
 
@@ -40,7 +42,9 @@ def draw_bounding_boxes(image_bytes, boxes, labels):
     image = asarray(img_from_bytes(image_bytes))
 
     all_bounding_boxes = []
-    for i in range(len(boxes)):
+    if limit == 0:
+        limit = len(boxes)
+    for i in range(limit):
         box = boxes[i]
         # FIXME: Document what I *think* is dependence on detecto's
         # predict output here
