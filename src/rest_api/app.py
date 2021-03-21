@@ -3,7 +3,7 @@ from base64 import standard_b64encode
 from flask import Flask, jsonify, redirect, render_template, request
 
 from predict import get_prediction
-from transform import thumbnailify_image
+from transform import thumbnailify_image, draw_bounding_boxes, img_from_ndarray, imgdata_from_ndarray
 
 app = Flask(__name__)
 
@@ -23,8 +23,13 @@ def upload_file():
 
         labels, boxes, confidence = get_prediction(image_bytes=img_bytes)
         # TODO: Refactor this & thumbnailify_image()
-        thumbnail_bytes = str(standard_b64encode(thumbnailify_image(img_bytes)))
-        return render_template('result.html', class_name=labels[0], box=boxes[0], confidence=confidence[0], img_bytes=thumbnail_bytes)
+        tn = thumbnailify_image(img_bytes, size=(250, 250))
+        thumbnail_bytes = str(standard_b64encode(tn))
+
+        img_with_bbs_array = draw_bounding_boxes(tn, boxes, labels)
+        img_with_bbs_data = imgdata_from_ndarray(img_with_bbs_array)
+        img_with_bbs_bytes = standard_b64encode(img_with_bbs_data)
+        return render_template('result.html', class_name=labels[0], box=boxes[0], confidence=confidence[0], img_bytes=img_with_bbs_bytes)
 
     return render_template('index.html')
 
