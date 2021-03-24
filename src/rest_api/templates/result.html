@@ -26,9 +26,22 @@
       <h1 class="h3 mb-3 font-weight-normal">Prediction</h1>
       <!-- https://stackoverflow.com/questions/20756042/how-to-display-an-image-stored-as-byte-array-in-html-javascript -->
       <img id="PredictionImage" alt="Original image" />
-      <h5 class="h5 mb-3 font-weight-normal">Detected: {{ class_name }}</h5>
-      <h5 class="h5 mb-3 font-weight-normal">Box: {{ box }}</h5>
-      <h5 class="h5 mb-3 font-weight-normal">Confidence: {{ confidence }}</h5>
+      <table class="table table">
+	<thead>
+	  <tr>
+	    <th scope="col">Detected</th>
+	    <th scope="col">Box</th>
+	    <th scope="col">Confidence</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td>{{ class_name }}</td>
+	    <td> {{ box }}</td>
+	    <td>{{ confidence }}</td>
+	  </tr>
+	</tbody>
+      </table>      
       <a href="/">Submit another</a>
       <p class="mt-5 mb-3 text-muted">Built using PyTorch, Flask and tea.</p>
     </form>
