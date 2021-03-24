@@ -29,7 +29,14 @@ def upload_file():
         img_with_bbs_array = draw_bounding_boxes(tn, boxes, labels, limit=1)
         img_with_bbs_data = imgdata_from_ndarray(img_with_bbs_array)
         img_with_bbs_bytes = standard_b64encode(img_with_bbs_data)
-        return render_template('result.html', class_name=labels[0], box=boxes[0], confidence=confidence[0], img_bytes=img_with_bbs_bytes)
+        # TODO: make a predictions class
+        all_predictions = []
+        for label, box, conf in zip(labels, boxes, confidence):
+            all_predictions.append({"label": label,
+                                    "box": box,
+                                    "confidence": int(conf * 100.0) })
+        # return render_template('result.html', class_name=labels, box=boxes, confidence=confidence, img_bytes=img_with_bbs_bytes)
+        return render_template('result.html', predictions=all_predictions, img_bytes=img_with_bbs_bytes)
 
     return render_template('index.html')
 

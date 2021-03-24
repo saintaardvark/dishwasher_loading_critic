@@ -35,11 +35,13 @@
 	  </tr>
 	</thead>
 	<tbody>
+	  {% for prediction in predictions %}
 	  <tr>
-	    <td>{{ class_name }}</td>
-	    <td> {{ box }}</td>
-	    <td>{{ confidence }}</td>
+	    <td>{{ prediction['label'] }}</td>
+	    <td> {{ prediction['box'] }}</td>
+	    <td>{{ prediction['confidence'] }}%</td>
 	  </tr>
+	  {% endfor %}
 	</tbody>
       </table>      
       <a href="/">Submit another</a>
